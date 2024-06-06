@@ -1,33 +1,35 @@
 from django.contrib import admin
-from .models import VacancyTable, FoodCategory, FoodItems, UserData, TableAnalytics
+from .models import Hotel, VacancyTable, FoodCategory, FoodItem
 
 # Register your models here.
 
+@admin.register(Hotel)
+class HotelAdmin(admin.ModelAdmin):
+    list_display = (
+        'hotel_name', 'hotel_reg_num', 'hotel_gst_num', 'address', 'mobile_num',
+        'email', 'number_of_table', 'owner_name', 'subscription_status',
+        'subscription_plan', 'subscription_start_date', 'subscription_end_date',
+        'subscription_payment_mode', 'created_at', 'updated_at'
+    )
+    search_fields = ('hotel_name', 'owner_name', 'email', 'hotel_reg_num', 'hotel_gst_num')
+    list_filter = ('subscription_status', 'subscription_plan', 'subscription_payment_mode')
+
+
 @admin.register(VacancyTable)
 class VacancyTableAdmin(admin.ModelAdmin):
-    list_display = ('id', 'table_no', 'status')
+    list_display = ('table_number', 'hotel', 'status', 'created_at', 'updated_at')
     list_filter = ('status',)
-    search_fields = ('table_no', 'status')
+    search_fields = ('table_number', 'hotel__hotel_name')
+
 
 @admin.register(FoodCategory)
 class FoodCategoryAdmin(admin.ModelAdmin):
-    list_display = ('category_id', 'category_name', 'added_by', 'created_at', 'updated_at')
-    search_fields = ('category_name', 'added_by')
+    list_display = ('category_name', 'hotel', 'created_at', 'updated_at')
+    search_fields = ('category_name', 'hotel__hotel_name')
 
-@admin.register(FoodItems)
-class FoodItemsAdmin(admin.ModelAdmin):
-    list_display = ('item_id', 'food_item_name', 'category_id', 'price', 'created_at', 'updated_at')
-    list_filter = ('category_id',)
-    search_fields = ('food_item_name',)
 
-@admin.register(UserData)
-class UserDataAdmin(admin.ModelAdmin):
-    list_display = ('id', 'email', 'mobile_no', 'user_id', 'role', 'created_at', 'updated_at')
-    search_fields = ('email', 'mobile_no', 'user_id', 'role')
-
-@admin.register(TableAnalytics)
-class TableAnalyticsAdmin(admin.ModelAdmin):
-    list_display = ('id', 'table_no', 'customer_name', 'total_amt', 'payment_mode', 'created_at', 'updated_at')
-    list_filter = ('table_no', 'payment_mode')
-    search_fields = ('table_no', 'customer_name')
-
+@admin.register(FoodItem)
+class FoodItemAdmin(admin.ModelAdmin):
+    list_display = ('food_item_name', 'category_name', 'hotel', 'full_price', 'half_price', 'created_at', 'updated_at')
+    list_filter = ('category_name', 'hotel__hotel_name')
+    search_fields = ('food_item_name', 'category_name__category_name')
