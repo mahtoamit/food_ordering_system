@@ -1,45 +1,77 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Hotel Mulshi Login Form </title>
+  <title>Hotel Mulshi Register Form</title>
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css'>
-  <link rel="stylesheet" href="{% static 'css/login.css' %}">
-
+  <link rel="stylesheet" href="{% static 'css/signup.css' %}">
 </head>
 <body>
-<!-- partial:index.partial.html -->
 <div class="login-form">
   <div class="text">
-    REGISTER
+    Join With Us!
   </div>
-  <form>
-    <div class="field">
-      <div class="fas fa-envelope"></div>
-      <input type="text" placeholder="Email">
+  <form method="post" action="{% url 'signup' %}">
+    {% csrf_token %}
+    <div class="form-container">
+      <div class="left-column">
+        <div class="field">
+          <div class="fas fa-hotel"></div>
+          <input type="text" name="hotel_name" placeholder="Hotel Name">
+        </div>
+        <div class="field">
+          <div class="fas fa-id-card"></div>
+          <input type="text" name="hotel_reg_num" placeholder="Hotel Registration Number">
+        </div>
+        <div class="field">
+          <div class="fas fa-receipt"></div>
+          <input type="text" name="hotel_gst_num" placeholder="Hotel GST Number">
+        </div>
+        <div class="field">
+          <div class="fas fa-map-marker-alt"></div>
+          <input type="text" name="address" placeholder="Address">
+        </div>
+        <div class="field">
+          <div class="fas fa-phone"></div>
+          <input type="text" name="mobile_num" placeholder="Mobile Number">
+        </div>
+      </div>
+      <div class="right-column">
+        <div class="field">
+          <div class="fas fa-envelope"></div>
+          <input type="email" name="email" placeholder="Email">
+        </div>
+        <div class="field">
+          <div class="fas fa-lock"></div>
+          <input type="password" name="password" placeholder="Password">
+        </div>
+        <div class="field">
+          <div class="fas fa-chair"></div>
+          <input type="number" name="number_of_table" placeholder="Number of Tables">
+        </div>
+        <div class="field">
+          <div class="fas fa-user"></div>
+          <input type="text" name="owner_name" placeholder="Owner Name">
+        </div>
+        <div class="field">
+          <div class="fas fa-file-contract"></div>
+          <select name="subscription_plan">
+            <option value="" disabled selected>Subscription Plan</option>
+            <option value="beginner">Beginner</option>
+            <option value="pro">Pro</option>
+            <option value="enterprise">Enterprise</option>
+          </select>
+        </div>
+      </div>
     </div>
-    <div class="field">
-        <div class="fas fa-phone"></div>
-        <input type="text" placeholder="Phone">
-    </div>
-    <div class="field">
-        <div class="fas fa-user"></div>
-        <input type="text" placeholder="Username">
-    </div>
-    <div class="field">
-      <div class="fas fa-lock"></div>
-      <input type="password" placeholder="Password">
-    </div>
-    <button>REGISTER </button>
+    <button type="submit">REGISTER</button>
     <div class="link">
       Already a member?
       <a href="{% url 'login' %}">Login now</a>
     </div>
   </form>
 </div>
-<!-- partial -->
-  
 </body>
 </html>
