@@ -85,6 +85,13 @@
       <a href="{% url 'login' %}">Login now</a>
     </div>
   </form>
+  {% if errors %}
+      <ul>
+        {% for field, error in errors.items %}
+          <li>{{ field }}: {{ error.0 }}</li>
+        {% endfor %}
+      </ul>
+  {% endif %}
 </div>
 </body>
 </html>

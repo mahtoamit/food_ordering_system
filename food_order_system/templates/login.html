@@ -25,13 +25,14 @@
       LOGIN
     </div>
     <form method="post" action="{% url 'login' %}">
+      {% csrf_token %}
       <div class="field">
         <div class="fas fa-envelope"></div>
-        <input type="text" placeholder="Email">
+        <input type="email" id="email" name="email" placeholder="Email">
       </div>
       <div class="field">
         <div class="fas fa-lock"></div>
-        <input type="password" placeholder="Password">
+        <input type="password" id="password" name="password"  placeholder="Password">
       </div>
       <button>LOGIN</button>
       <div class="link">
@@ -39,6 +40,13 @@
         <a href="{% url 'signup' %}">Signup now</a>
       </div>
     </form>
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
   </div>
 </body>
 </html>
