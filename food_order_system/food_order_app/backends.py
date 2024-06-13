@@ -5,6 +5,7 @@ from .models import Hotel
 class EmailBackend(BaseBackend):
 
     def authenticate(self, request, email=None, password=None, **kwargs):
+     
         try:
             hotel = Hotel.objects.get(email=email)
         except Hotel.DoesNotExist:
