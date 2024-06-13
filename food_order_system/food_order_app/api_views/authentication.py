@@ -12,8 +12,6 @@ class HotelRegisterView(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):
-        import pdb;
-        pdb.set_trace()
         serializer = HotelSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
